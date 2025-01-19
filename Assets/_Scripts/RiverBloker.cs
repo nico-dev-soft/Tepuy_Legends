@@ -4,26 +4,41 @@ using UnityEngine;
 
 public class RiverBloker : MonoBehaviour
 {
-    public string playerTag = "Player"; // Asegúrate de que el jugador tenga este tag
+   [SerializeField] private string playerTag = "Player"; // Asegúrate de que el jugador tenga este tag
+    [SerializeField] private GameObject warningMessage; // Panel o mensaje para mostrar al jugador
+
+    private bool isBlocked = true; // Estado inicial: acceso bloqueado
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(playerTag))
+        if (isBlocked && other.CompareTag(playerTag))
         {
             Debug.Log("Acceso al río bloqueado.");
-            // Aquí puedes hacer algo más, como mostrar un mensaje al jugador
+            ShowWarning();
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void ShowWarning()
     {
-        
+        if (warningMessage != null)
+        {
+            warningMessage.SetActive(true); // Activa el mensaje de advertencia
+            Invoke("HideWarning", 3f); // Oculta el mensaje después de 3 segundos
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void HideWarning()
     {
-        
+        if (warningMessage != null)
+        {
+            warningMessage.SetActive(false);
+        }
+    }
+
+    // Método público para desbloquear el acceso (llámalo desde otros scripts)
+    public void UnlockAccess()
+    {
+        isBlocked = false;
+        Debug.Log("Acceso al río desbloqueado.");
     }
 }
