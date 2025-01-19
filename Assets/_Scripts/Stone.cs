@@ -60,7 +60,7 @@ public class Stone : MonoBehaviour
         {
             isPlayerNearby = true;
             ShowHandAnimation();
-            ShowMessage("Presiona clic derecho para activar la piedra y escuchar su sonido ancestral.");
+            ShowMessage("Presiona clic derecho para activar la piedra");
         }
     }
 

@@ -241,7 +241,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator MoveCameraToPuzzle()
     {
         float elapsedTime = 0f;
-        float duration = 3f;
+        float duration = 5f;
 
         Vector3 startPosition = playerCamera.localPosition;
         Quaternion startRotation = playerCamera.localRotation;
@@ -265,7 +265,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator MoveCameraBack()
     {
         float elapsedTime = 0f;
-        float duration = 3f;
+        float duration = 5f;
 
         Vector3 startPosition = playerCamera.localPosition;
         Quaternion startRotation = playerCamera.localRotation;
