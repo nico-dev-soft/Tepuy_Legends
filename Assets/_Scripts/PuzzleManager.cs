@@ -105,7 +105,7 @@ public class PuzzleManager : MonoBehaviour
     {
         puzzleCompleted = true; // Marca el puzzle como resuelto
         Debug.Log("¡Puzzle resuelto!");
-        UpdatePuzzleStatus("¡Puzzle resuelto!");
+        UpdatePuzzleStatus("Enhorabuena, viajero. Has armonizado los ecos sagrados del Tepuy");
 
         // Muestra el mensaje durante 8 segundos antes de reiniciar
         StartCoroutine(RestartAfterDelay(8f));

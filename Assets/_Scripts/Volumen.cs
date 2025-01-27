@@ -6,37 +6,37 @@ using UnityEngine.UI;
 public class Volumen : MonoBehaviour
 {
     public Slider slider;
-    public float sliderValue;
     public Image imagenMute;
-    
-    
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-        slider.value = PlayerPrefs.GetFloat("volumenAudio", 0.5f);
-        AudioListener.volume = slider.value;
-        Muted();
+        // Configurar el valor inicial del slider desde el GameManager
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        if (gameManager != null)
+        {
+            slider.value = gameManager.volumen;
+        }
+
+        ActualizarVolumen(slider.value);
     }
 
-    public void ChangeSlider(float valor){
-        sliderValue = valor;
-        PlayerPrefs.SetFloat("volumenAudio", sliderValue);
-        AudioListener.volume = slider.value;
-        Muted();
-    }
-    
-    public void Muted(){
-        if(sliderValue == 0){
-            imagenMute.enabled = true;
-        }
-        else{
-            imagenMute.enabled = false;
+    public void ChangeSlider(float valor)
+    {
+        ActualizarVolumen(valor);
+
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        if (gameManager != null)
+        {
+            gameManager.ActualizarVolumen(valor);
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ActualizarVolumen(float valor)
     {
-        
+        AudioListener.volume = valor;
+        if (imagenMute != null)
+        {
+            imagenMute.enabled = valor == 0;
+        }
     }
 }

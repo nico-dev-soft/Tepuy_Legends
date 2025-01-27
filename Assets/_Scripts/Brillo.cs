@@ -5,29 +5,37 @@ using UnityEngine.UI;
 
 public class Brillo : MonoBehaviour
 {
- 
     public Slider slider;
-    public float sliderValue;
     public Image panelBrillo;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        slider.value = PlayerPrefs.GetFloat("brillo", 0.5f);
+        // Configurar el valor inicial del slider desde el GameManager
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        if (gameManager != null)
+        {
+            slider.value = gameManager.brillo;
+        }
 
-        panelBrillo.color = new Color(panelBrillo.color.r, panelBrillo.color.g, panelBrillo.color.b, slider.value);
-        
+        ActualizarBrillo(slider.value);
     }
 
-    public void ChangeSliderValue(float valor){
-        sliderValue = valor;
-        PlayerPrefs.SetFloat("brillo", sliderValue);
-        panelBrillo.color = new Color(panelBrillo.color.r,panelBrillo.color.g,panelBrillo.color.b, slider.value);
+    public void ChangeSliderValue(float valor)
+    {
+        ActualizarBrillo(valor);
+
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        if (gameManager != null)
+        {
+            gameManager.ActualizarBrillo(valor);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ActualizarBrillo(float valor)
     {
-        
+        if (panelBrillo != null)
+        {
+            panelBrillo.color = new Color(panelBrillo.color.r, panelBrillo.color.g, panelBrillo.color.b, valor);
+        }
     }
 }

@@ -6,19 +6,25 @@ using UnityEngine.SceneManagement;
 public class CambiarEscena : MonoBehaviour
 {
    
- public void NextEscene(string nombre)
+public void NextScene(string nombre)
     {
+        // Cargar la siguiente escena
         SceneManager.LoadScene(nombre);
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+
+        // Aplicar configuraciones después de cargar la nueva escena
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        
+        // Buscar el GameManager en la nueva escena y aplicar las configuraciones
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        if (gameManager != null)
+        {
+            gameManager.AplicarConfiguraciones();
+        }
+
+        // Desuscribirse del evento para evitar múltiples llamadas
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
